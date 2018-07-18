@@ -80,7 +80,7 @@ def main():
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    api.update_status(status="{}\n\n {}{}{}{}{}{}{}".format(time, gbp_final, eur_final, usd_final, ils_final, rub_final, cny_final, jpy_final))
+    api.update_status(status="{}\n\n{}{}{}{}{}{}{}".format(time, gbp_final, eur_final, usd_final, ils_final, rub_final, cny_final, jpy_final))
     print("Tweet sent!")
 
 while True:
