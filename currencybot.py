@@ -90,7 +90,9 @@ while True:
 
     if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,5)):
         main()
+        import time
         time.sleep(900)
     else:
         print("hibernating..")
+        import time
         time.sleep(900)
