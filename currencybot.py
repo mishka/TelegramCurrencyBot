@@ -107,7 +107,7 @@ while True:
     day_of_week = datetime.date.today().weekday()
     time = datetime.datetime.now().time()
 
-    if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,5)):
+    if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,15)):
         main()
         print("Done, sleeping for 15 minutes.")
         import time
