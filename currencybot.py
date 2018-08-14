@@ -327,4 +327,6 @@ while True:
             import time
             time.sleep(900)
     except ValueError:
+        import time
+        time.sleep(30)
         continue
