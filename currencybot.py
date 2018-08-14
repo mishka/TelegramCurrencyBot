@@ -4,7 +4,7 @@ def main():
     from bs4 import BeautifulSoup
     from datetime import datetime
 
-    time = datetime.now().strftime('%H:%M:%S %d-%m-%Y')
+    time = datetime.now().strftime('%H:%M')
     print(time + "\n")
     consumer_key = ""
     consumer_secret = ""
@@ -38,11 +38,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    gbp_final = "🇬🇧 £1 = ₺{} -> {}\n".format(gbp_tweet, well)
+    gbp_final = "🇬🇧 £1 = ₺{} > {}\n".format(gbp_tweet, well)
 
     print("Fetching eur data..")
     eur_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=TRY", headers=headers)
@@ -70,11 +70,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    eur_final = "🇪🇺 €1 = ₺{} -> {}\n".format(eur_tweet, well)
+    eur_final = "🇪🇺 €1 = ₺{} > {}\n".format(eur_tweet, well)
 
     print("Fetching usd data..")
     usd_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=TRY", headers=headers)
@@ -84,13 +84,13 @@ def main():
     usd_current = re.sub('[^0-9,.]', '', str(usd_rate))
     usd_tweet = usd_current[:-3]
 
-    with open("eur.txt", "r+") as txt:
+    with open("usd.txt", "r+") as txt:
         old = txt.readlines()
         old = re.sub('[^.0-9]', '', str(old))
         txt.truncate(0)
         txt.close()
 
-    with open("eur.txt", "r+") as txt:
+    with open("usd.txt", "r+") as txt:
         txt.write(usd_current)
         txt.close()
 
@@ -102,11 +102,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    usd_final = "🇺🇸 $1 = ₺{} -> {}\n".format(usd_tweet, well)
+    usd_final = "🇺🇸 $1 = ₺{} > {}\n".format(usd_tweet, well)
 
     print("Fetching ils data..")
     ils_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ILS&To=TRY", headers=headers)
@@ -122,7 +122,7 @@ def main():
         txt.truncate(0)
         txt.close()
 
-    with open("eur.txt", "r+") as txt:
+    with open("ils.txt", "r+") as txt:
         txt.write(ils_current)
         txt.close()
 
@@ -134,11 +134,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    ils_final = "🇮🇱 ₪1 = ₺{} -> {}\n".format(ils_tweet, well)
+    ils_final = "🇮🇱 ₪1 = ₺{} > {}\n".format(ils_tweet, well)
 
     print("Fetching rub data..")
     rub_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=RUB&To=TRY", headers=headers)
@@ -166,11 +166,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    rub_final = "🇷🇺 ₽1 = ₺{} -> {}\n".format(rub_tweet, well)
+    rub_final = "🇷🇺 ₽1 = ₺{} > {}\n".format(rub_tweet, well)
 
     print("Fetching cny data..")
     cny_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=CNY&To=TRY", headers=headers)
@@ -198,11 +198,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    cny_final = "🇨🇳 ¥1 = ₺{} -> {}\n".format(cny_tweet, well)
+    cny_final = "🇨🇳 ¥1 = ₺{} > {}\n".format(cny_tweet, well)
 
     print("Fetching jpy data..")
     jpy_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=JPY&To=TRY", headers=headers)
@@ -230,11 +230,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    jpy_final = "🇯🇵 ¥1 = ₺{} -> {}\n".format(jpy_tweet, well)
+    jpy_final = "🇯🇵 ¥1 = ₺{} > {}\n".format(jpy_tweet, well)
 
     print("Fetching krw data..")
     krw_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=KRW&To=TRY", headers=headers)
@@ -262,11 +262,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    krw_final = "🇰🇷 ₩1 = ₺{} -> {}\n".format(krw_tweet, well)
+    krw_final = "🇰🇷 ₩1 = ₺{} > {}\n".format(krw_tweet, well)
 
     print("Fetching isk data..")
     isk_url = requests.get("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ISK&To=TRY", headers=headers)
@@ -294,11 +294,11 @@ def main():
     string = ''.join(str(e) for e in list)
 
     if "-" in string:
-        well = '📉 ' + string[:6] + '%'
+        well = '📉 ' + string[:5] + '%'
     else:
-        well = '📈 ' + string[:5] + '%'
+        well = '📈 ' + string[:4] + '%'
 
-    isk_final = "🇮🇸 kr1 = ₺{} -> {}\n".format(isk_tweet, well)
+    isk_final = "🇮🇸 kr1 = ₺{} > {}\n".format(isk_tweet, well)
 
     import tweepy
 
@@ -306,20 +306,25 @@ def main():
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
+    print("{}\n\n{}{}{}{}{}{}{}{}{}".format(time, gbp_final, eur_final, usd_final, ils_final, cny_final, rub_final, isk_final, jpy_final, krw_final))
+
     api.update_status(status="{}\n\n{}{}{}{}{}{}{}{}{}".format(time, gbp_final, eur_final, usd_final, ils_final, cny_final, rub_final, isk_final, jpy_final, krw_final))
     print("Tweet sent!")
 
 while True:
-    import datetime
-    day_of_week = datetime.date.today().weekday()
-    time = datetime.datetime.now().time()
+    try:
+        import datetime
+        day_of_week = datetime.date.today().weekday()
+        time = datetime.datetime.now().time()
 
-    if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,15)):
-        main()
-        print("Done, sleeping for 15 minutes.")
-        import time
-        time.sleep(900)
-    else:
-        print("hibernating..")
-        import time
-        time.sleep(900)
+        if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,15)):
+            main()
+            print("Done, sleeping for 15 minutes.")
+            import time
+            time.sleep(900)
+        else:
+            print("hibernating..")
+            import time
+            time.sleep(900)
+    except ValueError:
+        continue
