@@ -158,7 +158,7 @@ def main():
         txt.write(rub_current)
         txt.close()
 
-    current = float(ils_current)
+    current = float(rub_current)
     old = float(old)
     percentage = 100 * (current - old) / old
     list = []
@@ -286,7 +286,7 @@ def main():
         txt.write(isk_current)
         txt.close()
 
-    current = float(cny_current)
+    current = float(isk_current)
     old = float(old)
     percentage = 100 * (current - old) / old
     list = []
