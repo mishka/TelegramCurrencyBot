@@ -1,1 +1,1 @@
-![alt tag](https://i.imgur.com/WtqNQEV.png "Screenshot")
+![alt tag](https://i.imgur.com/XJsaIse.png "Screenshot")
