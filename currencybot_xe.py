@@ -369,20 +369,18 @@ def isk():
     return isk_final
 
 while True:
-    try:
-        day_of_week = datetime.date.today().weekday()
-        time = datetime.datetime.now().time()
+    day_of_week = datetime.date.today().weekday()
+    time = datetime.datetime.now().time()
 
+    try:
+        import time
         if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,15)):
             tweet()
             print("Done, sleeping for 15 minutes.")
-            import time
             time.sleep(1800)
         else:
             print("hibernating..")
-            import time
             time.sleep(5000)
     except ValueError:
-        import time
         time.sleep(30)
         continue
