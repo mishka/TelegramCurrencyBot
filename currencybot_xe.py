@@ -370,11 +370,11 @@ def isk():
 
 while True:
     day_of_week = datetime.date.today().weekday()
-    time = datetime.datetime.now().time()
+    timen = datetime.datetime.now().time()
 
     try:
         import time
-        if day_of_week < 5 and (time > datetime.time(9,40) and time < datetime.time(18,15)):
+        if day_of_week < 5 and (timen > datetime.time(9,40) and timen < datetime.time(18,15)):
             tweet()
             print("Done, sleeping for 15 minutes.")
             time.sleep(1800)
