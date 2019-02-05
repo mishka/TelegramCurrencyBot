@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re, tweepy, datetime
+import re, json, tweepy, datetime
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -50,71 +50,71 @@ def gbp():
     print("Fetching gbp data..")
     gbp_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=TRY")
     
-    with open("gbp.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["gbp"]
+        data["gbp"] = gbp_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
-    with open("gbp.txt", "r+") as txt:
-        txt.write(gbp_current)
-        txt.close()
-    
     return "🇬🇧 £1 = ₺{} > {}\n".format(gbp_current[:-3], perc(compare(old, gbp_current)))
 
 def eur():
     print("Fetching eur data..")
     eur_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=TRY")
     
-    with open("eur.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("eur.txt", "r+") as txt:
-        txt.write(eur_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["eur"]
+        data["eur"] = eur_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇪🇺 €1 = ₺{} > {}\n".format(eur_current[:-3], perc(compare(old, eur_current)))
 
 def usd():
     usd_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=TRY")
 
-    with open("usd.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("usd.txt", "r+") as txt:
-        txt.write(usd_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["usd"]
+        data["usd"] = usd_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇺🇸 $1 = ₺{} > {}\n".format(usd_current[:-3], perc(compare(old, usd_current)))
 
 def ils():
     ils_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ILS&To=TRY")
 
-    with open("ils.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("ils.txt", "r+") as txt:
-        txt.write(ils_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["ils"]
+        data["ils"] = ils_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇮🇱 ₪1 = ₺{} > {}\n".format(ils_current[:-3], perc(compare(old, ils_current)))
 
 def rub():
     rub_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=RUB&To=TRY")
     
-    with open("rub.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("rub.txt", "r+") as txt:
-        txt.write(rub_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["rub"]
+        data["rub"] = rub_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇷🇺 ₽1 = ₺{} > {}\n".format(rub_current[:-4], perc(compare(old, rub_current)))
 
@@ -122,14 +122,14 @@ def cny():
     print("Fetching cny data..")
     cny_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=CNY&To=TRY")
     
-    with open("cny.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("cny.txt", "r+") as txt:
-        txt.write(cny_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["cny"]
+        data["cny"] = cny_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇨🇳 ¥1 = ₺{} > {}\n".format(cny_current[:-4], perc(compare(old, cny_current)))
 
@@ -137,14 +137,14 @@ def jpy():
     print("Fetching jpy data..")
     jpy_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=JPY&To=TRY")
 
-    with open("jpy.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("jpy.txt", "r+") as txt:
-        txt.write(jpy_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["jpy"]
+        data["jpy"] = jpy_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇯🇵 ¥1 = ₺{} > {}\n".format(jpy_current[:-4], perc(compare(old, jpy_current)))
 
@@ -152,14 +152,14 @@ def krw():
     print("Fetching krw data..")
     krw_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=KRW&To=TRY")
     
-    with open("krw.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("krw.txt", "r+") as txt:
-        txt.write(krw_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["krw"]
+        data["krw"] = krw_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇰🇷 ₩1 = ₺{} > {}\n".format(krw_current[:-4], perc(compare(old, krw_current)))
 
@@ -167,14 +167,14 @@ def isk():
     print("Fetching isk data..")
     isk_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ISK&To=TRY")
 
-    with open("isk.txt", "r+") as txt:
-        old = re.sub('[^.0-9]', '', str(txt.readlines()))
-        txt.truncate(0)
-        txt.close()
-
-    with open("isk.txt", "r+") as txt:
-        txt.write(isk_current)
-        txt.close()
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["isk"]
+        data["isk"] = isk_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
 
     return "🇮🇸 kr1 = ₺{} > {}\n".format(isk_current[:-4],perc(compare(old, isk_current)))
 
