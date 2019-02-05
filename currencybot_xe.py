@@ -332,7 +332,6 @@ def isk():
     isk_rate = isk_soup.find('span', {'class' : 'converterresult-toAmount'})
     isk_current = re.sub('[^0-9,.]', '', str(isk_rate))
     isk_tweet = isk_current[:-4]
-    driver.quit()
 
     with open("isk.txt", "r+") as txt:
         old = txt.readlines()
