@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re, json, tweepy, datetime
+from time import sleep
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -9,15 +10,16 @@ consumer_secret = ""
 access_token = ""
 access_token_secret = ""
 
-timex = datetime.datetime.now().strftime('%H:%M')
-print(timex + "\n")
-
 def tweet():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
     
-    api.update_status(status = get_data())
+    start_t = datetime.datetime.now()
+    c_data = get_data()
+    end_t = datetime.datetime.now() - start_t
+    print("\nTook {} to execute.\n\n{}".format(str(end_t)[:7], c_data))
+    api.update_status(status = c_data)
     print("Tweet sent!")
 
 def browser(url):
@@ -44,7 +46,8 @@ def compare(old, current):
     return ''.join(str(e) for e in list)
 
 def get_data():
-    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(timex, gbp(), eur(), usd(), ils(), cny(), rub(), isk(), jpy(), krw()) 
+    timex = datetime.datetime.now().strftime('%H:%M')
+    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(timex, gbp(), eur(), usd(), cad(), ils(), cny(), rub(), jpy(), krw()) 
 
 def gbp():
     print("Fetching gbp data..")
@@ -77,6 +80,7 @@ def eur():
     return "🇪🇺 €1 = ₺{} > {}\n".format(eur_current[:-3], perc(compare(old, eur_current)))
 
 def usd():
+    print("Fetching usd data..")
     usd_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=TRY")
 
     with open("rates.json", "r+") as x:
@@ -90,7 +94,23 @@ def usd():
 
     return "🇺🇸 $1 = ₺{} > {}\n".format(usd_current[:-3], perc(compare(old, usd_current)))
 
+def cad():
+    print("Fetching cad data..")
+    cad_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=CAD&To=TRY")
+
+    with open("rates.json", "r+") as x:
+        data = json.load(x)
+        old = data["cad"]
+        data["cad"] = cad_current
+        x.seek(0)
+        json.dump(data, x)
+        x.truncate()
+        x.close()
+
+    return "🇨🇦 C$1 = ₺{} > {}\n".format(cad_current[:-3], perc(compare(old, cad_current)))
+
 def ils():
+    print("Fetching ils data..")
     ils_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ILS&To=TRY")
 
     with open("rates.json", "r+") as x:
@@ -105,6 +125,7 @@ def ils():
     return "🇮🇱 ₪1 = ₺{} > {}\n".format(ils_current[:-3], perc(compare(old, ils_current)))
 
 def rub():
+    print("Fetching rub data..")
     rub_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=RUB&To=TRY")
     
     with open("rates.json", "r+") as x:
@@ -176,21 +197,20 @@ def isk():
         x.truncate()
         x.close()
 
-    return "🇮🇸 kr1 = ₺{} > {}\n".format(isk_current[:-4],perc(compare(old, isk_current)))
+    return "🇮🇸 kr1 = ₺{} > {}\n".format(isk_current[:-4], perc(compare(old, isk_current)))
 
 while True:
     day_of_week = datetime.date.today().weekday()
     timen = datetime.datetime.now().time()
 
     try:
-        import time
         if day_of_week < 5 and (timen > datetime.time(9,40) and timen < datetime.time(18,15)):
             tweet()
-            print("Done, sleeping for 15 minutes.")
-            time.sleep(1800)
+            print("Done, sleeping for 11 minutes.")
+            sleep(660)
         else:
-            print("hibernating..")
-            time.sleep(5000)
+            print("Outside of working hours, hibernating..")
+            sleep(5000)
     except ValueError:
-        time.sleep(30)
+        sleep(30)
         continue
