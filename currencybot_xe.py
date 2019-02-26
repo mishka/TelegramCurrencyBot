@@ -9,6 +9,7 @@ consumer_key = ""
 consumer_secret = ""
 access_token = ""
 access_token_secret = ""
+base_url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From={}&To=TRY"
 
 def tweet():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -58,53 +59,53 @@ def jsonrw(which, current):
 
 def get_data():
     timex = datetime.datetime.now().strftime('%H:%M')
-    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(timex, gbp(), eur(), usd(), cad(), ils(), cny(), rub(), jpy(), krw()) 
+    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(timex, gbp(), eur(), usd(), cad(), qar(), cny(), rub(), jpy(), krw()) 
 
 def gbp():
     print("Fetching gbp data..")
-    gbp_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=TRY")
+    gbp_current = browser(base_url.format("GBP"))
     return "🇬🇧 £1 = ₺{} > {}\n".format(gbp_current[:-3], jsonrw("gbp", gbp_current))
 
 def eur():
     print("Fetching eur data..")
-    eur_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=TRY")
+    eur_current = browser(base_url.format("EUR"))
     return "🇪🇺 €1 = ₺{} > {}\n".format(eur_current[:-3], jsonrw("eur", eur_current))
 
 def usd():
     print("Fetching usd data..")
-    usd_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=TRY")
+    usd_current = browser(base_url.format("USD"))
     return "🇺🇸 $1 = ₺{} > {}\n".format(usd_current[:-3], jsonrw("usd", usd_current))
 
 def cad():
     print("Fetching cad data..")
-    cad_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=CAD&To=TRY")
+    cad_current = browser(base_url.format("CAD"))
     return "🇨🇦 C$1 = ₺{} > {}\n".format(cad_current[:-3], jsonrw("cad", cad_current))
 
-def ils():
-    print("Fetching ils data..")
-    ils_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=ILS&To=TRY")
-    return "🇮🇱 ₪1 = ₺{} > {}\n".format(ils_current[:-3], jsonrw("ils", ils_current))
+def qar():
+    print("Fetching qar data..")
+    qar_current = browser(base_url.format("QAR"))
+    return "🇶🇦 QR1 = ₺{} > {}\n".format(qar_current[:-3], jsonrw("qar", qar_current))
 
 def rub():
     print("Fetching rub data..")
-    rub_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=RUB&To=TRY")
+    rub_current = browser(base_url.format("RUB"))
     return "🇷🇺 ₽1 = ₺{} > {}\n".format(rub_current[:-4], jsonrw("rub", rub_current))
 
 def cny():    
     print("Fetching cny data..")
-    cny_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=CNY&To=TRY")
+    cny_current = browser(base_url.format("CNY"))
     return "🇨🇳 ¥1 = ₺{} > {}\n".format(cny_current[:-4], jsonrw("cny", cny_current))
 
 def jpy():
     print("Fetching jpy data..")
-    jpy_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=JPY&To=TRY")
+    jpy_current = browser(base_url.format("JPY"))
     return "🇯🇵 ¥1 = ₺{} > {}\n".format(jpy_current[:-4], jsonrw("jpy", jpy_current))
 
 def krw():
     print("Fetching krw data..")
-    krw_current = browser("https://www.xe.com/currencyconverter/convert/?Amount=1&From=KRW&To=TRY")
+    krw_current = browser(base_url.format("KRW"))
     return "🇰🇷 ₩1 = ₺{} > {}\n".format(krw_current[:-4], jsonrw("krw", krw_current))
-
+'''
 while True:
     day_of_week = datetime.date.today().weekday()
     timen = datetime.datetime.now().time()
@@ -123,3 +124,5 @@ while True:
         sleep(10)
         tweet()
         sleep(780)
+'''
+tweet()
