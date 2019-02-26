@@ -105,7 +105,7 @@ def krw():
     print("Fetching krw data..")
     krw_current = browser(base_url.format("KRW"))
     return "🇰🇷 ₩1 = ₺{} > {}\n".format(krw_current[:-4], jsonrw("krw", krw_current))
-'''
+
 while True:
     day_of_week = datetime.date.today().weekday()
     timen = datetime.datetime.now().time()
@@ -124,5 +124,3 @@ while True:
         sleep(10)
         tweet()
         sleep(780)
-'''
-tweet()
