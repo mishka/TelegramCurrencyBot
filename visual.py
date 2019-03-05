@@ -24,7 +24,7 @@ def reset_csv():
         fwrite = csv.writer(f)
         fwrite.writerow(['TIME', 'GBP', 'EUR', 'USD', 'CAD', 'QAR', 'RUB', 'CNY', 'JPY', 'KRW'])
         f.close()
-    return print('Created a new csv file!')
+    print('Created a new csv file!')
 
 def tweet():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -80,7 +80,7 @@ def generate_chart():
         j += 1
 
     new_im.save(f"daily_charts/{today()}.png", "PNG", quality=100)
-    return print('Generated the chart!')
+    print('Generated the chart!')
 
 generate_images()
 generate_chart()
