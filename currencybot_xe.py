@@ -68,7 +68,7 @@ def update_csv():
             fwrite.writerow([current_time(), data['gbp'], data['eur'], data['usd'], data['cad'], data['qar'], data['rub'], data['cny'], data['jpy'], data['krw']])
             f.close()
             x.close()
-    return print('Updated csv!')
+    print('Updated csv!')
 
 def get_data():
     return "{}\n\n{}{}{}{}{}{}{}{}{}".format(current_time(), gbp(), eur(), usd(), cad(), qar(), cny(), rub(), jpy(), krw()) 
