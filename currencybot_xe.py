@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re, json, tweepy, datetime, subprocess
+import re, csv, json, tweepy, datetime, subprocess
 from time import sleep
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -10,6 +10,9 @@ consumer_secret = ""
 access_token = ""
 access_token_secret = ""
 base_url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From={}&To=TRY"
+
+def current_time():
+    return str(datetime.datetime.now().strftime('%H:%M'))
 
 def tweet():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -57,9 +60,18 @@ def jsonrw(which, current):
         x.close()
     return perc(compare(old, current))
 
+def update_csv():
+    with open('chart.csv', 'a') as f:
+        with open("rates.json", "r") as x:
+            fwrite = csv.writer(f)
+            data = json.load(x)
+            fwrite.writerow([current_time(), data['gbp'], data['eur'], data['usd'], data['cad'], data['qar'], data['rub'], data['cny'], data['jpy'], data['krw']])
+            f.close()
+            x.close()
+    return print('Updated csv!')
+
 def get_data():
-    timex = datetime.datetime.now().strftime('%H:%M')
-    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(timex, gbp(), eur(), usd(), cad(), qar(), cny(), rub(), jpy(), krw()) 
+    return "{}\n\n{}{}{}{}{}{}{}{}{}".format(current_time(), gbp(), eur(), usd(), cad(), qar(), cny(), rub(), jpy(), krw()) 
 
 def gbp():
     print("Fetching gbp data..")
@@ -107,17 +119,18 @@ def krw():
     return "🇰🇷 ₩1 = ₺{} > {}\n".format(krw_current[:-4], jsonrw("krw", krw_current))
 
 while True:
-    day_of_week = datetime.date.today().weekday()
-    timen = datetime.datetime.now().time()
-
     try:
-        if day_of_week < 5 and (timen > datetime.time(9,40) and timen < datetime.time(18,15)):
+        day_of_week = datetime.date.today().weekday()
+        time_now = datetime.datetime.now().time()
+
+        if day_of_week < 5 and (time_now > datetime.time(9,40) and time_now < datetime.time(18,15)):
             tweet()
+            update_csv()
             print("Done, sleeping for 13 minutes.") # it takes about 2 mins to fetch the data on avg
             sleep(780)
         else:
             print("Outside of working hours, hibernating..")
-            sleep(5000)
+            sleep(1800)
     except Exception as e:
         print(str(e))
         subprocess.call("killall chrome && killall chromedriver", shell = True)
