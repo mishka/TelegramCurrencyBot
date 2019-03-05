@@ -1,11 +1,11 @@
 # Requirements
-currencybot_xe.py;
+currencybot_xe.py (Shares the currency rates once every 15 mins);
   - python 3
   - chrome / chromedriver  
   - selenium, bs4
   - tweepy  
 
-For the visual.py;
+For the visual.py (Generates a graph based on the daily currency rate data at the end of the day);
  - pandas
  - pillow
  - plotly
