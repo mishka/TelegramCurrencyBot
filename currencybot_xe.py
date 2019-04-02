@@ -55,7 +55,7 @@ def jsonrw(which, current):
         old = data[which]
         data[which] = current
         x.seek(0)
-        json.dump(data, x)
+        json.dump(data, x, indent = 4, sort_keys = True)
         x.truncate()
         x.close()
     return perc(compare(old, current))
