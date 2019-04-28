@@ -136,4 +136,5 @@ while True:
         subprocess.call("killall chrome && killall chromedriver", shell = True)
         sleep(10)
         tweet()
+        update_csv()
         sleep(780)
